@@ -12,43 +12,83 @@ const Dashboard = () => {
   const contracts = [
     {
       id: 1,
-      name: 'Office Supplies Contract',
-      supplier: 'ABC Supplies Ltd',
-      type: 'non-food',
-      endDate: '2024-03-15',
+      name: 'Food Supply Contract',
+      supplier: 'Brakes',
+      type: 'food',
+      endDate: '2024-06-30',
       status: 'active'
     },
     {
       id: 2,
-      name: 'Cafeteria Food Services',
-      supplier: 'Fresh Foods Co',
+      name: 'Weekly Food Delivery',
+      supplier: 'Brakes',
       type: 'food',
-      endDate: '2024-01-30',
-      status: 'expiring'
+      endDate: '2024-03-15',
+      status: 'active'
     },
     {
       id: 3,
-      name: 'Cleaning Chemicals',
-      supplier: 'CleanChem Solutions',
-      type: 'chemicals',
+      name: 'Alcohol Beverage Supply',
+      supplier: 'JW Lees',
+      type: 'drinks',
+      endDate: '2024-05-20',
+      status: 'active'
+    },
+    {
+      id: 4,
+      name: 'Bar Drinks Supply',
+      supplier: 'JW Lees',
+      type: 'drinks',
+      endDate: '2024-02-28',
+      status: 'expiring'
+    },
+    {
+      id: 5,
+      name: 'Cleaning Services',
+      supplier: 'Countrywide',
+      type: 'cleaning-and-chemicals',
+      endDate: '2024-04-10',
+      status: 'active'
+    },
+    {
+      id: 6,
+      name: 'Chemical Supply Contract',
+      supplier: 'Countrywide',
+      type: 'cleaning-and-chemicals',
       endDate: '2023-12-01',
       status: 'expired'
     },
     {
-      id: 4,
-      name: 'IT Equipment Lease',
-      supplier: 'TechCorp Industries',
-      type: 'non-food',
-      endDate: '2024-06-20',
+      id: 7,
+      name: 'Catering Equipment Purchase',
+      supplier: 'Nisbets',
+      type: 'catering-equipment',
+      endDate: '2025-12-31',
       status: 'active'
     },
     {
-      id: 5,
-      name: 'Uniform Services',
-      supplier: 'Professional Uniforms',
-      type: 'non-food',
-      endDate: '2024-02-10',
+      id: 8,
+      name: 'Kitchen Equipment Lease',
+      supplier: 'Nisbets',
+      type: 'catering-equipment',
+      endDate: '2024-08-15',
       status: 'active'
+    },
+    {
+      id: 9,
+      name: 'Laundry Services',
+      supplier: 'Elis',
+      type: 'laundry',
+      endDate: '2024-09-30',
+      status: 'active'
+    },
+    {
+      id: 10,
+      name: 'Linens and Uniform Cleaning',
+      supplier: 'Elis',
+      type: 'laundry',
+      endDate: '2024-01-25',
+      status: 'expiring'
     }
   ];
 
@@ -83,11 +123,16 @@ const Dashboard = () => {
     // Calculate total contract value (mock data)
     const totalValue = contracts.reduce((sum, contract) => {
       const mockValues = {
-        1: 15000, // Office Supplies
-        2: 45000, // Cafeteria Food
-        3: 8500,  // Cleaning Chemicals
-        4: 25000, // IT Equipment
-        5: 12000  // Uniform Services
+        1: 65000,  // Brakes - Food Supply
+        2: 28000,  // Brakes - Weekly Food
+        3: 42000,  // JW Lees - Alcohol
+        4: 15000,  // JW Lees - Bar Drinks
+        5: 18500,  // Countrywide - Cleaning Services
+        6: 12000,  // Countrywide - Chemicals
+        7: 85000,  // Nisbets - Catering Equipment
+        8: 35000,  // Nisbets - Kitchen Equipment
+        9: 42500,  // Elis - Laundry Services
+        10: 22000  // Elis - Linens Cleaning
       };
       return sum + (mockValues[contract.id] || 0);
     }, 0);
@@ -167,9 +212,16 @@ const Dashboard = () => {
       key: 'type',
       label: 'Type',
       sortable: true,
-      render: (value) => (
-        <span className="capitalize">{value.replace('-', ' ')}</span>
-      )
+      render: (value) => {
+        const typeLabels = {
+          'food': 'Food',
+          'drinks': 'Drinks',
+          'cleaning-and-chemicals': 'Cleaning and Chemicals',
+          'catering-equipment': 'Catering Equipment',
+          'laundry': 'Laundry'
+        };
+        return <span className="capitalize">{typeLabels[value] || value}</span>;
+      }
     },
     {
       key: 'endDate',
@@ -389,10 +441,12 @@ const Dashboard = () => {
                 onChange={(e) => setFilterType(e.target.value)}
                 className="border border-gray-300 rounded-xl px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500 w-full sm:w-auto"
               >
-                <option value="all">All Types</option>
+                <option value="all">All Categories</option>
                 <option value="food">Food</option>
-                <option value="non-food">Non-Food</option>
-                <option value="chemicals">Chemicals</option>
+                <option value="drinks">Drinks</option>
+                <option value="cleaning-and-chemicals">Cleaning and Chemicals</option>
+                <option value="catering-equipment">Catering Equipment</option>
+                <option value="laundry">Laundry</option>
               </select>
             </div>
             

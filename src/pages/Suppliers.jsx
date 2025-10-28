@@ -18,30 +18,48 @@ const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([
     {
       id: 1,
-      name: 'ABC Supplies Ltd',
-      keyContact: 'John Smith',
-      email: 'john@abcsupplies.com',
+      name: 'Brakes',
+      keyContact: 'Emma Thompson',
+      email: 'emma.thompson@brakes.co.uk',
       phone: '+44 1234 567890',
-      address: '123 Business Park, London, SW1A 1AA',
-      accreditations: 'ISO 9001, BRC Global Standards'
+      address: '123 Supply Chain Way, Birmingham, B12 4AA',
+      accreditations: 'ISO 9001, BRC AA Rated, HACCP'
     },
     {
       id: 2,
-      name: 'Fresh Foods Co',
-      keyContact: 'Sarah Johnson',
-      email: 'sarah@freshfoods.co.uk',
-      phone: '+44 2345 678901',
-      address: '456 Food Street, Manchester, M1 1AA',
-      accreditations: 'HACCP, Organic Certification'
+      name: 'JW Lees',
+      keyContact: 'James Wilson',
+      email: 'james.wilson@jwlees.co.uk',
+      phone: '+44 161 234 5678',
+      address: '456 Brewery Road, Manchester, M3 6AB',
+      accreditations: 'ISO 9001, Alcohol Wholesale Registration'
     },
     {
       id: 3,
-      name: 'CleanChem Solutions',
-      keyContact: 'Mike Wilson',
-      email: 'mike@cleanchem.com',
+      name: 'Countrywide',
+      keyContact: 'Michael Anderson',
+      email: 'michael.anderson@countrywide.com',
       phone: '+44 3456 789012',
-      address: '789 Industrial Way, Birmingham, B1 1AA',
-      accreditations: 'COSHH Certified, REACH Compliant'
+      address: '789 Industrial Estate, London, NW1 2CD',
+      accreditations: 'COSHH Certified, REACH Compliant, ISO 9001'
+    },
+    {
+      id: 4,
+      name: 'Nisbets',
+      keyContact: 'Sarah Mitchell',
+      email: 'sarah.mitchell@nisbets.co.uk',
+      phone: '+44 4567 890123',
+      address: '234 Catering Equipment Park, Bristol, BS1 3DE',
+      accreditations: 'ISO 9001, Catering Equipment Certified'
+    },
+    {
+      id: 5,
+      name: 'Elis',
+      keyContact: 'David Roberts',
+      email: 'david.roberts@elis.co.uk',
+      phone: '+44 5678 901234',
+      address: '567 Laundry Services Lane, Leeds, LS1 4EF',
+      accreditations: 'ISO 9001, Oeko-Tex Certified, Sustainable Textiles'
     }
   ]);
 

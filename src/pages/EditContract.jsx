@@ -139,9 +139,11 @@ const EditContract = () => {
                       required
                     >
                       <option value="">Select Supplier</option>
-                      <option value="abc-supplies">ABC Supplies Ltd</option>
-                      <option value="fresh-foods">Fresh Foods Co</option>
-                      <option value="cleanchem">CleanChem Solutions</option>
+                      <option value="brakes">Brakes</option>
+                      <option value="jw-lees">JW Lees</option>
+                      <option value="countrywide">Countrywide</option>
+                      <option value="nisbets">Nisbets</option>
+                      <option value="elis">Elis</option>
                     </select>
                   </div>
 
@@ -171,8 +173,10 @@ const EditContract = () => {
                     >
                       <option value="">Select Type</option>
                       <option value="food">Food</option>
-                      <option value="non-food">Non-Food</option>
-                      <option value="chemicals">Chemicals</option>
+                      <option value="drinks">Drinks</option>
+                      <option value="cleaning-and-chemicals">Cleaning and Chemicals</option>
+                      <option value="catering-equipment">Catering Equipment</option>
+                      <option value="laundry">Laundry</option>
                     </select>
                   </div>
                 </div>

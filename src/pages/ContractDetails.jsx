@@ -52,7 +52,7 @@ const ContractDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-7 pt-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-32">
         <div className="mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Contract Details</h2>
           <p className="text-gray-600">Create and manage contract information</p>
@@ -92,9 +92,11 @@ const ContractDetails = () => {
                       required
                     >
                       <option value="">Select Supplier</option>
-                      <option value="abc-supplies">ABC Supplies Ltd</option>
-                      <option value="fresh-foods">Fresh Foods Co</option>
-                      <option value="cleanchem">CleanChem Solutions</option>
+                      <option value="brakes">Brakes</option>
+                      <option value="jw-lees">JW Lees</option>
+                      <option value="countrywide">Countrywide</option>
+                      <option value="nisbets">Nisbets</option>
+                      <option value="elis">Elis</option>
                     </select>
                   </div>
 
@@ -124,8 +126,10 @@ const ContractDetails = () => {
                     >
                       <option value="">Select Type</option>
                       <option value="food">Food</option>
-                      <option value="non-food">Non-Food</option>
-                      <option value="chemicals">Chemicals</option>
+                      <option value="drinks">Drinks</option>
+                      <option value="cleaning-and-chemicals">Cleaning and Chemicals</option>
+                      <option value="catering-equipment">Catering Equipment</option>
+                      <option value="laundry">Laundry</option>
                     </select>
                   </div>
                 </div>

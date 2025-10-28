@@ -99,9 +99,11 @@ const Reports = () => {
                 className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-blue-500 focus:border-blue-500"
               >
                 <option value="">All Suppliers</option>
-                <option value="abc-supplies">ABC Supplies Ltd</option>
-                <option value="fresh-foods">Fresh Foods Co</option>
-                <option value="cleanchem">CleanChem Solutions</option>
+                <option value="brakes">Brakes</option>
+                <option value="jw-lees">JW Lees</option>
+                <option value="countrywide">Countrywide</option>
+                <option value="nisbets">Nisbets</option>
+                <option value="elis">Elis</option>
               </select>
             </div>
 
@@ -223,16 +225,16 @@ const Reports = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 <tr className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    Office Supplies Contract
+                    Food Supply Contract
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    ABC Supplies Ltd
+                    Brakes
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    £15,000
+                    £65,000
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    2024-03-15
+                    2024-06-30
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -242,16 +244,16 @@ const Reports = () => {
                 </tr>
                 <tr className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    Cafeteria Food Services
+                    Bar Drinks Supply
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    Fresh Foods Co
+                    JW Lees
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    £45,000
+                    £15,000
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-red-500">
-                    2024-01-30
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-yellow-500">
+                    2024-02-28
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
@@ -261,13 +263,13 @@ const Reports = () => {
                 </tr>
                 <tr className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    Cleaning Chemicals
+                    Chemical Supply Contract
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    CleanChem Solutions
+                    Countrywide
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    £8,500
+                    £12,000
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-red-500">
                     2023-12-01
