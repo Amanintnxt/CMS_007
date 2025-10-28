@@ -8,8 +8,8 @@ const Dashboard = () => {
   const [sortField, setSortField] = useState('endDate');
   const [sortDirection, setSortDirection] = useState('asc');
 
-  // Sample data
-  const contracts = [
+  // Sample data (stateful to allow delete)
+  const [contracts, setContracts] = useState([
     {
       id: 1,
       name: 'Food Supply Contract',
@@ -90,10 +90,10 @@ const Dashboard = () => {
       endDate: '2024-01-25',
       status: 'expiring'
     }
-  ];
+  ]);
 
   const filteredAndSortedContracts = useMemo(() => {
-    let filtered = contracts;
+    let filtered = [...contracts];
     
     if (filterType !== 'all') {
       filtered = contracts.filter(contract => contract.type === filterType);
@@ -111,7 +111,7 @@ const Dashboard = () => {
     });
     
     return filtered;
-  }, [filterType, sortField, sortDirection]);
+  }, [contracts, filterType, sortField, sortDirection]);
 
   // Calculate dashboard stats
   const dashboardStats = useMemo(() => {
@@ -171,6 +171,10 @@ const Dashboard = () => {
 
   const handleEdit = (contract) => {
     navigate(`/contracts/${contract.id}/edit`);
+  };
+
+  const handleDelete = (contract) => {
+    setContracts(prev => prev.filter(c => c.id !== contract.id));
   };
 
   const getStatusBadge = (status) => {
@@ -464,6 +468,7 @@ const Dashboard = () => {
           sortField={sortField}
           sortDirection={sortDirection}
           onEdit={handleEdit}
+          onDelete={handleDelete}
           showActions={true}
         />
       </div>
