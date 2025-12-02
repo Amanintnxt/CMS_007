@@ -97,24 +97,57 @@ const ContractDetails = () => {
   };
 
   const renderActions = ({ row, requestDelete }) => (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="flex items-center gap-2">
       <button
         onClick={() => handleView(row)}
-        className="text-blue-600 hover:text-blue-800 transition-colors"
+        title="View contract"
+        aria-label="View contract"
+        className="p-2 rounded-xl border border-gray-200 text-blue-600 hover:bg-blue-50 transition-colors"
       >
-        View
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+          />
+        </svg>
       </button>
       <button
         onClick={() => handleEdit(row)}
-        className="text-green-600 hover:text-green-800 transition-colors"
+        title="Edit contract"
+        aria-label="Edit contract"
+        className="p-2 rounded-xl border border-gray-200 text-green-600 hover:bg-green-50 transition-colors"
       >
-        Edit
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 013.536 3.536L7.5 21.5l-4 1 1-4L15.732 3.732z"
+          />
+        </svg>
       </button>
       <button
         onClick={() => requestDelete(row)}
-        className="text-red-600 hover:text-red-800 transition-colors"
+        title="Delete contract"
+        aria-label="Delete contract"
+        className="p-2 rounded-xl border border-gray-200 text-red-600 hover:bg-red-50 transition-colors"
       >
-        Delete
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m-9-9h14m-10-4h6a1 1 0 011 1v2H7V6a1 1 0 011-1z"
+          />
+        </svg>
       </button>
     </div>
   );
@@ -195,7 +228,7 @@ const ContractDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-32">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pt-32">
         <div className="mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">All Contracts</h2>

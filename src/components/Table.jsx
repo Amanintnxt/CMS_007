@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-const Table = ({ 
-  data, 
-  columns, 
-  onSort, 
-  sortField, 
+const Table = ({
+  data,
+  columns,
+  onSort,
+  sortField,
   sortDirection,
   onEdit,
   onDelete,
@@ -61,6 +61,49 @@ const Table = ({
     setRowPendingDelete(null);
   };
 
+  const getIconForPrimaryAction = () => {
+    const label = primaryActionLabel?.toLowerCase() || '';
+    if (label.includes('view')) {
+      return (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+          />
+        </svg>
+      );
+    }
+    return (
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 013.536 3.536L7.5 21.5l-4 1 1-4L15.732 3.732z"
+        />
+      </svg>
+    );
+  };
+
+  const getDeleteIcon = () => (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m-9-9h14m-10-4h6a1 1 0 011 1v2H7V6a1 1 0 011-1z"
+      />
+    </svg>
+  );
+
   const renderActionButtons = (row) => {
     if (renderActions) {
       return renderActions({ row, requestDelete });
@@ -70,15 +113,19 @@ const Table = ({
       <>
         <button
           onClick={() => onEdit && onEdit(row)}
-          className="text-blue-600 hover:text-blue-900 transition-colors"
+          title={primaryActionLabel}
+          aria-label={primaryActionLabel}
+          className="p-2 rounded-xl border border-gray-200 text-blue-600 hover:bg-blue-50 transition-colors"
         >
-          {primaryActionLabel}
+          {getIconForPrimaryAction()}
         </button>
         <button
           onClick={() => requestDelete(row)}
-          className="text-red-600 hover:text-red-900 transition-colors"
+          title={secondaryActionLabel}
+          aria-label={secondaryActionLabel}
+          className="p-2 rounded-xl border border-gray-200 text-red-600 hover:bg-red-50 transition-colors"
         >
-          {secondaryActionLabel}
+          {getDeleteIcon()}
         </button>
       </>
     );
@@ -160,15 +207,19 @@ const Table = ({
                     <>
                       <button
                         onClick={() => onEdit && onEdit(row)}
+                        title={primaryActionLabel}
+                        aria-label={primaryActionLabel}
                         className="flex-1 text-blue-600 hover:text-blue-900 transition-colors text-sm font-medium py-2"
                       >
-                        {primaryActionLabel}
+                        {getIconForPrimaryAction()}
                       </button>
                       <button
                         onClick={() => requestDelete(row)}
+                        title={secondaryActionLabel}
+                        aria-label={secondaryActionLabel}
                         className="flex-1 text-red-600 hover:text-red-900 transition-colors text-sm font-medium py-2"
                       >
-                        {secondaryActionLabel}
+                        {getDeleteIcon()}
                       </button>
                     </>
                   )}
