@@ -8,7 +8,10 @@ const Table = ({
   sortDirection,
   onEdit,
   onDelete,
-  showActions = true 
+  showActions = true,
+  primaryActionLabel = 'Edit',
+  secondaryActionLabel = 'Delete',
+  renderActions
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -58,6 +61,29 @@ const Table = ({
     setRowPendingDelete(null);
   };
 
+  const renderActionButtons = (row) => {
+    if (renderActions) {
+      return renderActions({ row, requestDelete });
+    }
+
+    return (
+      <>
+        <button
+          onClick={() => onEdit && onEdit(row)}
+          className="text-blue-600 hover:text-blue-900 transition-colors"
+        >
+          {primaryActionLabel}
+        </button>
+        <button
+          onClick={() => requestDelete(row)}
+          className="text-red-600 hover:text-red-900 transition-colors"
+        >
+          {secondaryActionLabel}
+        </button>
+      </>
+    );
+  };
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedData = data.slice(startIndex, endIndex);
@@ -102,18 +128,7 @@ const Table = ({
                 ))}
                 {showActions && (
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                    <button
-                      onClick={() => onEdit && onEdit(row)}
-                      className="text-blue-600 hover:text-blue-900 transition-colors"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => requestDelete(row)}
-                      className="text-red-600 hover:text-red-900 transition-colors"
-                    >
-                      Delete
-                    </button>
+                    {renderActionButtons(row)}
                   </td>
                 )}
               </tr>
@@ -139,18 +154,24 @@ const Table = ({
               ))}
               {showActions && (
                 <div className="flex space-x-4 pt-3 border-t border-gray-100">
-                  <button
-                    onClick={() => onEdit && onEdit(row)}
-                    className="flex-1 text-blue-600 hover:text-blue-900 transition-colors text-sm font-medium py-2"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => requestDelete(row)}
-                    className="flex-1 text-red-600 hover:text-red-900 transition-colors text-sm font-medium py-2"
-                  >
-                    Delete
-                  </button>
+                  {renderActions ? (
+                    renderActions({ row, requestDelete })
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => onEdit && onEdit(row)}
+                        className="flex-1 text-blue-600 hover:text-blue-900 transition-colors text-sm font-medium py-2"
+                      >
+                        {primaryActionLabel}
+                      </button>
+                      <button
+                        onClick={() => requestDelete(row)}
+                        className="flex-1 text-red-600 hover:text-red-900 transition-colors text-sm font-medium py-2"
+                      >
+                        {secondaryActionLabel}
+                      </button>
+                    </>
+                  )}
                 </div>
               )}
             </div>

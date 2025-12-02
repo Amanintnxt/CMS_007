@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Table from '../components/Table';
+import contractsData from '../data/contracts';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -9,88 +10,7 @@ const Dashboard = () => {
   const [sortDirection, setSortDirection] = useState('asc');
 
   // Sample data (stateful to allow delete)
-  const [contracts, setContracts] = useState([
-    {
-      id: 1,
-      name: 'Food Supply Contract',
-      supplier: 'Brakes',
-      type: 'food',
-      endDate: '2024-06-30',
-      status: 'active'
-    },
-    {
-      id: 2,
-      name: 'Weekly Food Delivery',
-      supplier: 'Brakes',
-      type: 'food',
-      endDate: '2024-03-15',
-      status: 'active'
-    },
-    {
-      id: 3,
-      name: 'Alcohol Beverage Supply',
-      supplier: 'JW Lees',
-      type: 'drinks',
-      endDate: '2024-05-20',
-      status: 'active'
-    },
-    {
-      id: 4,
-      name: 'Bar Drinks Supply',
-      supplier: 'JW Lees',
-      type: 'drinks',
-      endDate: '2024-02-28',
-      status: 'expiring'
-    },
-    {
-      id: 5,
-      name: 'Cleaning Services',
-      supplier: 'Countrywide',
-      type: 'cleaning-and-chemicals',
-      endDate: '2024-04-10',
-      status: 'active'
-    },
-    {
-      id: 6,
-      name: 'Chemical Supply Contract',
-      supplier: 'Countrywide',
-      type: 'cleaning-and-chemicals',
-      endDate: '2023-12-01',
-      status: 'expired'
-    },
-    {
-      id: 7,
-      name: 'Catering Equipment Purchase',
-      supplier: 'Nisbets',
-      type: 'catering-equipment',
-      endDate: '2025-12-31',
-      status: 'active'
-    },
-    {
-      id: 8,
-      name: 'Kitchen Equipment Lease',
-      supplier: 'Nisbets',
-      type: 'catering-equipment',
-      endDate: '2024-08-15',
-      status: 'active'
-    },
-    {
-      id: 9,
-      name: 'Laundry Services',
-      supplier: 'Elis',
-      type: 'laundry',
-      endDate: '2024-09-30',
-      status: 'active'
-    },
-    {
-      id: 10,
-      name: 'Linens and Uniform Cleaning',
-      supplier: 'Elis',
-      type: 'laundry',
-      endDate: '2024-01-25',
-      status: 'expiring'
-    }
-  ]);
+  const [contracts, setContracts] = useState(contractsData);
 
   const filteredAndSortedContracts = useMemo(() => {
     let filtered = [...contracts];
@@ -169,8 +89,8 @@ const Dashboard = () => {
     }
   };
 
-  const handleEdit = (contract) => {
-    navigate(`/contracts/${contract.id}/edit`);
+  const handleView = (contract) => {
+    navigate(`/contracts/${contract.id}`);
   };
 
   const handleDelete = (contract) => {
@@ -205,7 +125,15 @@ const Dashboard = () => {
       key: 'name',
       label: 'Contract Name',
       sortable: true,
-      render: (value) => <span className="font-medium text-gray-900">{value}</span>
+      render: (value, row) => (
+        <button
+          type="button"
+          onClick={() => handleView(row)}
+          className="font-medium text-blue-600 hover:text-blue-800 focus:outline-none"
+        >
+          {value}
+        </button>
+      )
     },
     {
       key: 'supplier',
@@ -467,9 +395,10 @@ const Dashboard = () => {
           onSort={handleSort}
           sortField={sortField}
           sortDirection={sortDirection}
-          onEdit={handleEdit}
+          onEdit={handleView}
           onDelete={handleDelete}
           showActions={true}
+          primaryActionLabel="View"
         />
       </div>
     </div>

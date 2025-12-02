@@ -13,7 +13,10 @@ const Tabs = () => {
     { name: 'Reports', path: '/reports', icon: '📈' }
   ];
 
-  const currentTab = tabs.find(tab => location.pathname === tab.path) || tabs[0];
+  const currentTab =
+    tabs.find((tab) => location.pathname === tab.path) ||
+    tabs.find((tab) => tab.path !== '/' && location.pathname.startsWith(tab.path)) ||
+    tabs[0];
 
   return (
     <div className="bg-white border-b border-gray-200 px-4 sm:px-6 pt-20 pb-0">

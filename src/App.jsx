@@ -9,6 +9,8 @@ import SessionWarning from './components/SessionWarning';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ContractDetails from './pages/ContractDetails';
+import NewContract from './pages/NewContract';
+import ViewContract from './pages/ViewContract';
 import Suppliers from './pages/Suppliers';
 import UserAdmin from './pages/UserAdmin';
 import Reports from './pages/Reports';
@@ -37,6 +39,8 @@ function App() {
                   <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/contracts" element={<ContractDetails />} />
+                    <Route path="/contracts/new" element={<NewContract />} />
+                    <Route path="/contracts/:id" element={<ViewContract />} />
                     <Route path="/contracts/:id/edit" element={<EditContract />} />
                     <Route path="/suppliers" element={<Suppliers />} />
                     <Route path="/suppliers/:id/edit" element={<EditSupplier />} />

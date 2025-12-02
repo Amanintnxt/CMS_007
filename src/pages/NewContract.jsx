@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import documentFields from '../constants/documentFields';
 
-const createDocumentState = (seed = {}) =>
+const createDocumentState = () =>
   documentFields.reduce((acc, field) => {
-    acc[field.key] = {
-      file: null,
-      expiry: seed[field.key] || ''
-    };
+    acc[field.key] = { file: null, expiry: '' };
     return acc;
   }, {});
 
-const EditContract = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  
+const NewContract = () => {
   const [formData, setFormData] = useState({
     contractName: '',
     supplier: '',
@@ -37,56 +30,9 @@ const EditContract = () => {
     alertType: 'email'
   });
 
-  // Sample data - in real app, this would come from API
-  const sampleContract = {
-    id: id,
-    contractName: 'Office Supplies Contract',
-    supplier: 'abc-supplies',
-    area: 'Head Office',
-    type: 'non-food',
-    contractValue: '15000',
-    duration: '12',
-    endDate: '2024-03-15',
-    reminder: '1-month',
-    notes: 'This contract covers all office supplies for the head office location.',
-    specialTerms: 'Quarterly review required',
-    referenceNumber: 'CON-2024-001',
-    internalContact: 'John Doe',
-    documents: [
-      {
-        key: 'insurance',
-        name: 'Insurance Certificate',
-        expiryDate: '2024-05-31'
-      },
-      {
-        key: 'gdpr',
-        name: 'GDPR Compliance',
-        expiryDate: '2024-09-30'
-      },
-      {
-        key: 'tradingStandards',
-        name: 'Trading Standards Report',
-        expiryDate: '2024-04-15'
-      }
-    ]
-  };
-
-  useEffect(() => {
-    // In real app, fetch contract data by ID
-    if (sampleContract) {
-      const { documents: sampleDocs = [], ...contractFields } = sampleContract;
-      setFormData(contractFields);
-      const docSeed = sampleDocs.reduce((acc, doc) => {
-        acc[doc.key] = doc.expiryDate || '';
-        return acc;
-      }, {});
-      setDocuments(createDocumentState(docSeed));
-    }
-  }, [id]);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
@@ -94,7 +40,7 @@ const EditContract = () => {
 
   const handleFileUpload = (e, field) => {
     const file = e.target.files[0];
-    setDocuments(prev => ({
+    setDocuments((prev) => ({
       ...prev,
       [field]: {
         ...prev[field],
@@ -104,7 +50,7 @@ const EditContract = () => {
   };
 
   const handleExpiryChange = (value, field) => {
-    setDocuments(prev => ({
+    setDocuments((prev) => ({
       ...prev,
       [field]: {
         ...prev[field],
@@ -115,34 +61,15 @@ const EditContract = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Contract updated:', { formData, documents, alerts });
-    navigate('/');
-  };
-
-  const handleCancel = () => {
-    navigate('/');
+    console.log('Form submitted:', { formData, documents, alerts });
   };
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-32">
         <div className="mb-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Edit Contract</h2>
-              <p className="text-gray-600">Update contract information</p>
-            </div>
-            <button
-              onClick={handleCancel}
-              className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              <span className="hidden sm:inline">Back to Dashboard</span>
-              <span className="sm:hidden">Back</span>
-            </button>
-          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">New Contract</h2>
+          <p className="text-gray-600">Create and manage contract information</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -302,9 +229,7 @@ const EditContract = () => {
                         <label className="block text-sm font-medium text-gray-700">
                           {label}
                         </label>
-                        <span className="text-xs text-gray-400">
-                          {documents[key]?.expiry ? 'Expiry tracked' : 'Optional'}
-                        </span>
+                        <span className="text-xs text-gray-400">Optional</span>
                       </div>
                       {helper && <p className="text-xs text-gray-500 mb-2">{helper}</p>}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -404,7 +329,7 @@ const EditContract = () => {
                     <input
                       type="email"
                       value={alerts.whoNotified}
-                      onChange={(e) => setAlerts(prev => ({ ...prev, whoNotified: e.target.value }))}
+                      onChange={(e) => setAlerts((prev) => ({ ...prev, whoNotified: e.target.value }))}
                       className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="email@company.com"
                     />
@@ -414,20 +339,13 @@ const EditContract = () => {
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex justify-end space-x-4">
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="px-6 py-2 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors"
-            >
-              Cancel
-            </button>
+          {/* Submit Button */}
+          <div className="flex justify-end">
             <button
               type="submit"
               className="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 transition-colors"
             >
-              Update Contract
+              Save Contract
             </button>
           </div>
         </form>
@@ -436,4 +354,5 @@ const EditContract = () => {
   );
 };
 
-export default EditContract;
+export default NewContract;
+
