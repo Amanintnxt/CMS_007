@@ -40,6 +40,14 @@ const ViewContract = () => {
   const navigate = useNavigate();
   const contract = contractsData.find((entry) => entry.id === Number(id));
 
+  const handleBackClick = () => {
+    if (typeof window !== 'undefined' && window.history.state?.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   const getStatusBadge = (status) => {
     const baseClasses = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium';
     switch (status) {
@@ -89,10 +97,10 @@ const ViewContract = () => {
               We couldn&apos;t find a contract with ID {id}. It may have been deleted.
             </p>
             <button
-              onClick={() => navigate('/')}
+              onClick={handleBackClick}
               className="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 transition-colors"
             >
-              Back to Dashboard
+              Back
             </button>
           </div>
         </div>
@@ -190,10 +198,10 @@ const ViewContract = () => {
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <button
-                onClick={() => navigate('/')}
+                onClick={handleBackClick}
                 className="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors"
               >
-                Back to Dashboard
+                Back
               </button>
               <button
                 onClick={() => navigate(`/contracts/${contract.id}/edit`)}

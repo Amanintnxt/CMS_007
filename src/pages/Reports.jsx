@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import contractsData from '../data/contracts';
+
+const statusBadgeClasses = {
+  active: 'bg-green-100 text-green-800',
+  expiring: 'bg-yellow-100 text-yellow-800',
+  expired: 'bg-red-100 text-red-800'
+};
 
 const Reports = () => {
+  const navigate = useNavigate();
   const [filters, setFilters] = useState({
     supplier: '',
     category: '',
@@ -26,6 +35,26 @@ const Reports = () => {
   const handleExport = (format) => {
     console.log(`Exporting to ${format} with filters:`, filters);
     // Implement export functionality
+  };
+
+  const formatCurrency = (value) => `£${value.toLocaleString()}`;
+
+  const getEndDateClasses = (status) => {
+    if (status === 'expired') {
+      return 'text-red-500';
+    }
+    if (status === 'expiring') {
+      return 'text-yellow-500';
+    }
+    return 'text-gray-900';
+  };
+
+  const contractSummaryRows = ['active', 'expiring', 'expired']
+    .map((status) => contractsData.find((contract) => contract.status === status))
+    .filter(Boolean);
+
+  const handleViewContract = (id) => {
+    navigate(`/contracts/${id}`);
   };
 
   const SummaryCard = ({ title, value, color, icon }) => (
@@ -223,63 +252,48 @@ const Reports = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    Food Supply Contract
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    Brakes
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    £65,000
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    2024-06-30
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                      Active
-                    </span>
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    Bar Drinks Supply
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    JW Lees
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    £15,000
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-yellow-500">
-                    2024-02-28
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                      Expiring
-                    </span>
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    Chemical Supply Contract
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    Countrywide
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    £12,000
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-red-500">
-                    2023-12-01
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                      Expired
-                    </span>
-                  </td>
-                </tr>
+                {contractSummaryRows.length > 0 ? (
+                  contractSummaryRows.map((contract) => (
+                    <tr key={contract.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-700">
+                        <button
+                          type="button"
+                          onClick={() => handleViewContract(contract.id)}
+                          className="text-left font-medium text-blue-600 hover:text-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
+                        >
+                          {contract.name}
+                        </button>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {contract.supplier}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {formatCurrency(contract.contractValue)}
+                      </td>
+                      <td className={`px-6 py-4 whitespace-nowrap text-sm ${getEndDateClasses(contract.status)}`}>
+                        {new Date(contract.endDate).toLocaleDateString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            statusBadgeClasses[contract.status] || 'bg-gray-100 text-gray-800'
+                          }`}
+                        >
+                          {contract.status.charAt(0).toUpperCase() + contract.status.slice(1)}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="px-6 py-4 text-sm text-gray-500 text-center"
+                    >
+                      No contracts available for summary.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
