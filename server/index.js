@@ -2,9 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
 import { parse } from 'csv-parse/sync';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const distPath = path.join(__dirname, '../dist');
 
 app.use(cors());
 app.use(express.json({ limit: '5mb' }));
@@ -120,6 +125,16 @@ app.post('/api/contracts/bulk-upload/json', (req, res) => {
       details: error.message
     });
   }
+});
+
+// Serve built client assets when running in production and provide SPA fallback
+app.use(express.static(distPath));
+app.get('*', (req, res) => {
+  // Let API requests fall through to default 404 instead of the SPA shell
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ message: 'Not found' });
+  }
+  return res.sendFile(path.join(distPath, 'index.html'));
 });
 
 app.listen(PORT, () => {
