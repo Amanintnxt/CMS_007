@@ -119,8 +119,12 @@ const EditContract = () => {
     navigate('/');
   };
 
-  const handleCancel = () => {
-    navigate('/');
+  const handleBack = () => {
+    if (typeof window !== 'undefined' && window.history.state?.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
   };
 
   return (
@@ -133,13 +137,13 @@ const EditContract = () => {
               <p className="text-gray-600">Update contract information</p>
             </div>
             <button
-              onClick={handleCancel}
+              onClick={handleBack}
               className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
-              <span className="hidden sm:inline">Back to Dashboard</span>
+              <span className="hidden sm:inline">Back</span>
               <span className="sm:hidden">Back</span>
             </button>
           </div>
@@ -418,7 +422,7 @@ const EditContract = () => {
           <div className="flex justify-end space-x-4">
             <button
               type="button"
-              onClick={handleCancel}
+              onClick={handleBack}
               className="px-6 py-2 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors"
             >
               Cancel
